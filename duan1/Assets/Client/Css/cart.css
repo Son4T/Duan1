@@ -1,0 +1,139 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 100%;
+    margin: auto;
+    margin-top: 50px;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.product {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Đẩy nút xóa sang phải */
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.product-info {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.remove-btn {
+    background: red;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.remove-btn:hover {
+    background: darkred;
+}
+
+.product-list {
+    flex-basis: 70%;
+    /* Chiếm 70% chiều rộng */
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+}
+
+.cart-details {
+    flex-basis: 30%;
+    /* Chiếm 30% chiều rộng */
+    padding-left: 20px;
+}
+
+.cart-summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 85%;
+}
+
+.upper-section {
+    flex-grow: 1;
+}
+
+.lower-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.total-price,
+.checkout-btn,
+.update-btn {
+    background: #fff;
+    margin-top: 10px;
+}
+
+.checkout-btn,
+.update-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border: none;
+}
+
+.checkout-btn {
+    background: #28a745;
+    color: #fff;
+}
+
+.checkout-btn:hover {
+    background: #218838;
+}
+
+.update-btn {
+    background: #ffc107;
+    color: #fff;
+}
+
+.update-btn:hover {
+    background: #e0a800;
+}
+
+.product {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.product img {
+    width: 100px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.remove-btn {
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.remove-btn:hover {
+    background: #c82333;
+}

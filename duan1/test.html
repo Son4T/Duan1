@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Nông Trại</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .game-container {
+            position: relative;
+            width: 600px;
+            height: 400px;
+            background-color: #90ee90;
+            border: 3px solid #4caf50;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .tile {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            background-color: #deb887;
+            border: 2px solid #8b4513;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .tile .planted {
+            background-color: #228b22;
+        }
+
+        .tile .harvestable {
+            background-color: #ff6347;
+        }
+
+        .tile .empty {
+            background-color: #deb887;
+        }
+
+        .tile img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .status {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            color: #4caf50;
+        }
+
+        .action-btn {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="tile empty" id="tile-0">
+            <span>Vùng đất trống</span>
+        </div>
+        <div class="tile empty" id="tile-1">
+            <span>Vùng đất trống</span>
+        </div>
+        <div class="tile empty" id="tile-2">
+            <span>Vùng đất trống</span>
+        </div>
+        <div class="tile empty" id="tile-3">
+            <span>Vùng đất trống</span>
+        </div>
+        <div class="tile empty" id="tile-4">
+            <span>Vùng đất trống</span>
+        </div>
+        <div class="tile empty" id="tile-5">
+            <span>Vùng đất trống</span>
+        </div>
+    </div>
+    <div class="status">
+        <p id="status-text">Chào mừng bạn đến với nông trại!</p>
+        <p id="coins">Tiền: 0</p>
+    </div>
+    <button id="actionBtn" class="action-btn">Trồng Cây</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tiles = document.querySelectorAll('.tile');
+            const statusText = document.getElementById('status-text');
+            const coinsDisplay = document.getElementById('coins');
+            const actionBtn = document.getElementById('actionBtn');
+
+            let coins = 1;
+            let currentAction = 'plant'; // Actions: 'plant', 'harvest'
+            let plantedTiles = [];
+
+            actionBtn.addEventListener('click', function() {
+                if (currentAction === 'plant') {
+                    plantCrop();
+                } else if (currentAction === 'harvest') {
+                    harvestCrop();
+                }
+            });
+
+            function plantCrop() {
+                if (coins >= 1) {
+                    const emptyTiles = Array.from(tiles).filter(tile => !tile.classList.contains('planted'));
+                    if (emptyTiles.length > 0) {
+                        const tile = emptyTiles[0];
+                        tile.classList.remove('empty');
+                        tile.classList.add('planted');
+                        tile.innerHTML = '<img src="https://via.placeholder.com/40x40?text=Plant" alt="Plant">';
+
+                        coins -= 1; // Trừ tiền khi trồng cây
+                        coinsDisplay.textContent = 'Tiền: ' + coins;
+                        statusText.textContent = 'Cây đã được trồng!';
+                        currentAction = 'harvest';
+                        actionBtn.textContent = 'Thu hoạch Cây';
+                    } else {
+                        statusText.textContent = 'Không còn đất trống!';
+                    }
+                } else {
+                    statusText.textContent = 'Cần có ít nhất 1 tiền để trồng cây!';
+                }
+            }
+
+            function harvestCrop() {
+                const plantedTile = Array.from(tiles).find(tile => tile.classList.contains('planted'));
+                if (plantedTile) {
+                    plantedTile.classList.remove('planted');
+                    plantedTile.classList.add('empty');
+                    plantedTile.innerHTML = '<span>Vùng đất trống</span>';
+                    plantedTiles.push(plantedTile);
+                    coins += 2; // Thu hoạch được 2 tiền
+                    coinsDisplay.textContent = 'Tiền: ' + coins;
+                    statusText.textContent = 'Cây đã được thu hoạch!';
+                    currentAction = 'plant';
+                    actionBtn.textContent = 'Trồng Cây';
+                } else {
+                    statusText.textContent = 'Không có cây nào để thu hoạch!';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
