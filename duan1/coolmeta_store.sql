@@ -189,7 +189,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fullname`, `email`, `password`, `phone`, `role`, `address`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Vũ Tiến Thành', 'tienthanh1025@gmail.com', '$2y$10$OesPT1y.eoJNhrC6hDr12emQibJZH/S.RiQ3onRmGLwYmPUh3u4Ru', '0395386692', 'admin', '', 'active', '2024-12-03 13:47:04', '2025-12-10 19:34:16'),
+(1, 'Nguyễn Hồng Sơn', 'crhogsn@gmail.com', '$2y$10$OesPT1y.eoJNhrC6hDr12emQibJZH/S.RiQ3onRmGLwYmPUh3u4Ru', '0355895918', 'admin', '', 'active', '2024-12-03 13:47:04', '2025-12-10 19:34:16'),
 (10, 'thanh32', 'admin@1231gmail.com', '$2y$10$zwhHdxUMWTfy8jxi4qh74O0rszLQhUVH5orBvK0m9ObSP.aaTmfSG', '0333332211', 'user', 'hanoi', 'active', '2025-12-10 13:21:06', '2025-12-10 13:21:06'),
 (11, 'TienThanh', 'tienthanh10@gmail.com', '$2y$10$TTkUtBafI50mFKa3Sq4G0OP6rE2/ey673f7X/5rNQWenhcPJAaaua', '0395386692', 'user', 'HaiPhong', 'active', '2025-12-18 22:49:20', '2025-12-18 22:49:20');
 

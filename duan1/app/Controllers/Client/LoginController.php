@@ -33,7 +33,7 @@ class LoginController
             // Kiểm tra nếu đăng nhập thành công
             if ($user) {
                 $_SESSION['user'] = $user; // Lưu thông tin người dùng vào session
-                header("Location: index.php?act=home"); // Chuyển hướng tới trang chính sau khi đăng nhập
+                header("Location: index.php?act="); // Chuyển hướng tới trang chủ
                 exit();
             } else {
                 // Nếu đăng nhập thất bại, hiển thị thông báo lỗi
@@ -42,8 +42,9 @@ class LoginController
                 exit();
             }
         } else {
-            // Nếu không có POST request (nghĩa là người dùng mới vào trang đăng nhập)
-            return view('Client.login'); // Hiển thị trang đăng nhập
+            // Nếu truy cập bằng GET, chuyển hướng về LoginForm để load đủ categories
+            header("Location: index.php?act=LoginForm");
+            exit();
         }
     }
 

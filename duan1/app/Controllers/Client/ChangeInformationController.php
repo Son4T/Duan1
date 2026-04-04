@@ -17,7 +17,7 @@ class ChangeInformationController
             // Kiểm tra các trường bắt buộc
             if (empty($data['fullname']) || empty($data['email']) || empty($data['phone']) || empty($data['role'])) {
                 $_SESSION['message'] = "Vui lòng điền đầy đủ thông tin";
-                header("Location: index.php?role=admin&act=ChangeInforForm&id=" . $id);
+                header("Location: index.php?act=ChangeInforForm&id=" . $id);
                 exit;
             }
     
@@ -32,7 +32,7 @@ class ChangeInformationController
             // Kiểm tra định dạng email
             if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
                 $_SESSION['message'] = "Địa chỉ email không hợp lệ.";
-                header("Location: index.php?role=admin&act=UpdateUserForm&id=" . $id);
+                header("Location: index.php?act=ChangeInforForm&id=" . $id);
                 exit;
             }
     
@@ -40,9 +40,6 @@ class ChangeInformationController
             if (empty($data['password'])) {
                 // Nếu không có mật khẩu mới, giữ lại mật khẩu cũ
                 unset($data['password']);  // Đảm bảo không truyền mật khẩu cũ khi không thay đổi
-            } else {
-                // Mã hóa mật khẩu mới
-                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             }
     
             // Cập nhật thông tin người dùng trong cơ sở dữ liệu (gọi phương thức updateUser)

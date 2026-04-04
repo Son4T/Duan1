@@ -44,9 +44,6 @@ class AdminUserController {
             if (empty($data['password'])) {
                 // Nếu không có mật khẩu mới, giữ lại mật khẩu cũ
                 unset($data['password']);  // Đảm bảo không truyền mật khẩu cũ khi không thay đổi
-            } else {
-                // Mã hóa mật khẩu mới
-                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             }
     
             // Cập nhật thông tin người dùng trong cơ sở dữ liệu (gọi phương thức updateUser)

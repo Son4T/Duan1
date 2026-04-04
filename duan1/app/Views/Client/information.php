@@ -90,7 +90,7 @@
                 <?php endif; ?>
                 <li><a href="index.php?act=Logout">Đăng xuất</a></li>
             <?php else: ?>
-                <li><a href="index.php?act=Login">Đăng nhập</a></li>
+                <li><a href="index.php?act=LoginForm">Đăng nhập</a></li>
             <?php endif; ?>
         </ul>
     </div>
@@ -119,7 +119,7 @@
                 <input type="text" id="created_at" value="<?= date('d/m/Y', strtotime($_SESSION['user']['created_at'])) ?>" readonly>
             </div>
         <?php else: ?>
-            <p>Bạn chưa đăng nhập. Vui lòng <a href="index.php?act=Login">đăng nhập</a>.</p>
+            <p>Bạn chưa đăng nhập. Vui lòng <a href="index.php?act=LoginForm">đăng nhập</a>.</p>
         <?php endif; ?>
     </div>
 </div>

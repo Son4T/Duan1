@@ -33,7 +33,7 @@
           <label class="form-label">Nhập lại mật khẩu</label>
           <input type="text" name="get_check_password" class="form-control" required>
         </div>    
-        <a href="index.php?act=RegisterForm">Đăng Nhập tại đây</a><br> <br>
+        <a href="index.php?act=LoginForm">Đăng Nhập tại đây</a><br> <br>
         <button type="submit" name="sbm_register" style="width: 100%;" class="btn btn-primary">Đăng ký</button>
       </form>
     </div>

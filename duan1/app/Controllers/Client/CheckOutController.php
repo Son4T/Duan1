@@ -4,7 +4,7 @@ class CheckOutController
     public function index()
     {      
         if (!isset($_SESSION['user'])) {
-            header("location: index.php?act=Login");
+            header("Location: index.php?act=LoginForm");
             exit;
         }
 
@@ -40,7 +40,7 @@ class CheckOutController
             empty($user['address'])
         ) {
             $_SESSION['message'] = "Vui lòng nhập đầy đủ thông tin trước khi đặt hàng.";
-            header("Location: index.php?act=checkOut");
+            header("Location: index.php?act=CheckOutForm");
             exit;
         }
 
@@ -54,7 +54,7 @@ class CheckOutController
 
         if (empty($order['payment_method'])) {
             $_SESSION['message'] = "Vui lòng chọn phương thức thanh toán.";
-            header("Location: index.php?act=checkOut");
+            header("Location: index.php?act=CheckOutForm");
             exit;
         }
 

@@ -37,12 +37,12 @@ foreach ($controllerClient as $controllerName) {
 }
 
 // Xử lý khi không có vai trò được xác định (người dùng thông thường)
-if (!isset($role)) {
+if ($role !== 'admin') {
     match ($act) {
         'RegisterForm' => $RegisterController->index(),
         'StorageUser' => $RegisterController->Storage(),
-        'LoginForm' => $LoginController->index(),
-        'Login' => $LoginController->login(),
+        'LoginForm', 'login', 'loginform' => $LoginController->index(),
+        'Login', 'HandleLogin', 'handlelogin' => $LoginController->login(),
         'Products' => $ProductController->index(),
         'Category' => $ProductInCategoryController->index(),
         'Logout' => $LoginController->logout(),
@@ -52,8 +52,8 @@ if (!isset($role)) {
         'Cart' => $CartController->index(),
         'DeleteInCart' => $CartController->delete(),
         'UpdateCart' => $CartController->updateCart(),
-        'CheckOutForm' => $CheckOutController->index(),
-        'CheckOut' => $CheckOutController->checkOut(),
+        'CheckOutForm', 'checkoutform' => $CheckOutController->index(),
+        'CheckOut', 'checkout' => $CheckOutController->checkOut(),
         'ChangeInforForm' => $ChangeInformationController->UpdateForm(),
         'ChangeInformation' => $ChangeInformationController->update($id),
         'Order' => $OrdersController->index(),

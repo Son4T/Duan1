@@ -34,7 +34,7 @@ class RegisterController {
                 'email' => $data['email'],
                 'phone' => $data['phone'],
                 'address' => $data['address'],
-                'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+                'password' => $data['password'], // Model Account sẽ thực hiện hash
                 'role' => 'user',  // Mặc định role là 'user'
                 'status' => 'active',  // Mặc định status là 'active'
                 'created_at' => date('Y-m-d H:i:s'),

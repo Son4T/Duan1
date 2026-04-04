@@ -5,7 +5,7 @@ class OrdersController
         // Kiểm tra người dùng đã đăng nhập chưa
         if (!isset($_SESSION['user'])) {
             // Nếu chưa đăng nhập thì chuyển về trang login
-            header('Location: index.php?act=Login');
+            header('Location: index.php?act=LoginForm');
             exit;
         }
 
@@ -26,7 +26,7 @@ class OrdersController
     public function cancel($orderId) {
         // Kiểm tra quyền truy cập
         if (!isset($_SESSION['user'])) {
-            header('Location: index.php?act=Login');
+            header('Location: index.php?act=LoginForm');
             exit;
         }
 
