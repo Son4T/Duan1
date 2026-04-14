@@ -47,6 +47,8 @@ class ChangeInformationController
     
             // Kiểm tra kết quả cập nhật
             if ($result) {
+                // Cập nhật lại session user để hiển thị thông tin mới ngay lập tức trên giao diện
+                $_SESSION['user'] = (new Account)->find($id);
                 $_SESSION['message'] = "Cập nhật thông tin người dùng thành công.";
                 return header("Location: index.php?act=Information");
             } else {

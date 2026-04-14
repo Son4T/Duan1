@@ -61,6 +61,9 @@ class CheckOutController
         // Cập nhật thông tin người dùng
         (new Account)->update($user['id'], $user);
 
+        // Cập nhật lại session để thông tin mới (như địa chỉ, số điện thoại) được đồng bộ
+        $_SESSION['user'] = (new Account)->find($user['id']);
+
         // Tạo đơn hàng
         $orderId = (new Order)->create($order);
 
