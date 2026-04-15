@@ -1,0 +1,31 @@
+
+h1 {
+    text-align: center;
+    color: #ff5722;
+}
+
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.products-table th,
+.products-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.products-table th {
+    background-color: #ff5722;
+    color: white;
+}
+
+.products-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.product-image {
+    max-width: 100px;
+    border-radius: 8px;
+}
