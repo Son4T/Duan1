@@ -93,4 +93,67 @@ class PaymentController {
         header("Location: index.php?act=Order");
         exit;
     }
+
+    public function qrPayment($orderId) {
+        $order = (new Order)->find($orderId);
+        if (!$order) {
+            $_SESSION['message'] = "Không tìm thấy đơn hàng.";
+            header("Location: index.php?act=Order");
+            exit;
+        }
+
+        // Dữ liệu thanh toán QR (có thể điều chỉnh theo nhu cầu)
+        $qrData = [
+            'orderId' => $order['id'],
+            'amount' => $order['total_price'],
+            'fullname' => $order['fullname'],
+            'phone' => $order['phone'],
+            'email' => $order['email']
+        ];
+
+        $categories = (new Category)->all();
+        return view('Client.qrPayment', compact('categories', 'order', 'qrData'));
+    }
+
+    public function confirmQrPayment() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $_SESSION['message'] = "Phương thức yêu cầu không hợp lệ.";
+            header("Location: index.php?act=Order");
+            exit;
+        }
+
+        $orderId = $_POST['orderId'] ?? '';
+        
+        if (empty($orderId)) {
+            $_SESSION['message'] = "Không tìm thấy đơn hàng.";
+            header("Location: index.php?act=Order");
+            exit;
+        }
+
+        // Lấy thông tin đơn hàng
+        $order = (new Order)->find($orderId);
+        if (!$order) {
+            $_SESSION['message'] = "Không tìm thấy đơn hàng.";
+            header("Location: index.php?act=Order");
+            exit;
+        }
+
+        // Cập nhật trạng thái đơn hàng thành pending (chờ xác nhận thanh toán)
+        (new Order)->updateStatus($orderId, 'pending');
+
+        // Tạo thông báo cho admin
+        $notificationData = [
+            'order_id' => $orderId,
+            'user_id' => $order['user_id'],
+            'message' => "Khách hàng " . $order['fullname'] . " vừa thanh toán đơn hàng #" . $orderId . " bằng mã QR. Số tiền: " . number_format($order['total_price']) . " VND. Vui lòng xác nhận đơn hàng.",
+            'is_read' => 0,
+            'is_confirmed' => 0
+        ];
+        (new Notification)->create($notificationData);
+
+        $_SESSION['message'] = "Đơn hàng #" . $orderId . " đang chờ xác nhận thanh toán qua QR.";
+        header("Location: index.php?act=Order");
+        exit;
+    }
 }
+

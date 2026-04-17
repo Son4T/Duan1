@@ -12,6 +12,7 @@ $controllerAdmin = [
     'AdminOrderController',
     'AdminCommentController',
     'AdminStatisticalController',
+    'AdminNotificationController',
 ];
 foreach ($controllerAdmin as $controllerName) {
     $$controllerName = new $controllerName;
@@ -35,6 +36,9 @@ $controllerClient = [
 foreach ($controllerClient as $controllerName) {
     $$controllerName = new $controllerName;
 }
+
+// Khởi tạo PaymentController riêng
+$PaymentController = new PaymentController();
 
 // Xử lý khi không có vai trò được xác định (người dùng thông thường)
 if ($role !== 'admin') {
@@ -60,6 +64,8 @@ if ($role !== 'admin') {
         'CancelOrder' => $OrdersController->cancel($id),
         'AddComment' => $CommentController->addComment(),
         'DeleteComment' => $CommentController->deleteComment(),
+        'QrPayment' => $PaymentController->qrPayment($id),
+        'ConfirmQrPayment' => $PaymentController->confirmQrPayment(),
         default => $HomeController->index()
     };
 }
@@ -92,6 +98,8 @@ if (isset($role) && $role == 'admin') {
         'DeleteComment' => $AdminCommentController->delete(),
         'Statistical' => $AdminStatisticalController->index(),
         'BestSelling' => $AdminStatisticalController->bestselling(),
+        'ConfirmOrder' => $AdminNotificationController->confirmOrder(),
+        'DismissNotification' => $AdminNotificationController->dismissNotification(),
         default => include_once VIEW . "Admin/wellcome.php"
     };
 }

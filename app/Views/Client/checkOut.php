@@ -22,6 +22,7 @@
                 <select id="payment-method" name="payment_method" required>
                     <option value="cash">Thanh toán khi nhận hàng</option>
                     <option value="bank">Chuyển khoản ngân hàng</option>
+                    <option value="qr">Thanh toán bằng Mã QR</option>
                 </select>
             </form>
         </div>

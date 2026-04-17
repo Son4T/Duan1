@@ -81,6 +81,13 @@ class CheckOutController
         }
 
         $this->clearCart();
+
+        // Xử lý thanh toán QR
+        if ($order['payment_method'] == 'qr') {
+            header("Location: index.php?act=QrPayment&id=" . $orderId);
+            exit;
+        }
+
         $_SESSION['message'] = "Đặt hàng thành công!";
         header("location: index.php?act=");
         exit;

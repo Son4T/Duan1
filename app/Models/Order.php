@@ -40,7 +40,7 @@ class Order
     public function create($data)
     {
         // Danh sách phương thức thanh toán hợp lệ
-        $allowedMethods = ['cash', 'momo', 'vnpay', 'banking'];
+        $allowedMethods = ['cash', 'card', 'online', 'bank', 'momo', 'vnpay', 'qr'];
 
         // Nếu không hợp lệ hoặc rỗng thì gán mặc định là 'cash'
         if (empty($data['payment_method']) || !in_array($data['payment_method'], $allowedMethods)) {
