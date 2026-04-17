@@ -137,12 +137,59 @@ class Product
         return $stmt->execute();
     }
 
+    // Kiểm tra xem sản phẩm có trong đơn hàng đang hoạt động không
+    public function hasActiveOrders($id)
+    {
+        $sql = "SELECT COUNT(*) as count FROM order_details od 
+                JOIN orders o ON od.order_id = o.id 
+                WHERE od.product_id = :id AND o.status IN ('pending', 'processing', 'confirmed')
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'] > 0;
+    }
+    
+    // Lấy tổng số đơn hàng có chứa sản phẩm này
+    public function getTotalOrdersWithProduct($id)
+    {
+        $sql = "SELECT COUNT(*) as count FROM order_details WHERE product_id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['count'];
+    }
+    
     // Xóa một sản phẩm theo ID
     public function delete($id)
     {
-        $sql = "DELETE FROM products WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute(['id' => $id]);
+        try {
+            // Kiểm tra xem sản phẩm có trong đơn hàng đang hoạt động không
+            if ($this->hasActiveOrders($id)) {
+                throw new Exception("Không thể xóa sản phẩm vì có đơn hàng đang hoạt động.");
+            }
+            
+            // Bước 1: Xóa các bình luận liên quan đến sản phẩm
+            $sqlDeleteComments = "DELETE FROM comments WHERE product_id = :id";
+            $stmtComments = $this->pdo->prepare($sqlDeleteComments);
+            $stmtComments->execute(['id' => $id]);
+            
+            // Bước 2: Xóa các chi tiết đơn hàng liên quan (đơn hàng đã hoàn thành/hủy)
+            $sqlDeleteOrderDetails = "DELETE FROM order_details WHERE product_id = :id";
+            $stmtOrderDetails = $this->pdo->prepare($sqlDeleteOrderDetails);
+            $stmtOrderDetails->execute(['id' => $id]);
+            
+            // Bước 3: Xóa sản phẩm
+            $sql = "DELETE FROM products WHERE id = :id";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute(['id' => $id]);
+        } catch (PDOException $e) {
+            error_log("Error deleting product: " . $e->getMessage());
+            throw new Exception("Lỗi cơ sở dữ liệu khi xóa sản phẩm.");
+        } catch (Exception $e) {
+            error_log("Error: " . $e->getMessage());
+            throw $e;
+        }
     }
 
     // Tăng số lượt xem
@@ -200,13 +247,5 @@ class Product
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    // Xóa sản phẩm theo ID (chuẩn OOP)
-    public function deleteProductById($id)
-    {
-        $sql = "DELETE FROM products WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute(['id' => $id]);
     }
 }

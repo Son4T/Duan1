@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Assets/global.css">
     <link rel="stylesheet" href="Assets/Client/Css/main.css">
     <title>Coolmeta Stores</title>
 </head>
@@ -25,12 +26,12 @@
                 </ul>
             </div>
             <div class="search">
-                <form action="index.php" method="GET">
+                <form action="index.php" method="GET" style="display: flex; gap: 0; width: 100%; align-items: center;">
                     <input type="hidden" name="act" value="Products">
                     <input class="search-bar" type="search" placeholder="TÌM KIẾM..." name="search" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>" required>
                     <button type="submit" class="search-header-btn">
                         <img class="search-logo" src="Assets/images/search-icon.png" alt="Tìm kiếm">
-                        <span>TÌM KIẾM</span>
+                        <span>search</span>
                     </button>
                 </form>
             </div>

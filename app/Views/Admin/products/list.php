@@ -43,14 +43,13 @@
                             <td style="background-color: #f8f8f8; padding: 10px; text-align: left; border: 1px solid #ccc; width: 150px;">
                                 <?= ($value['status'] == 'active') ? 'Active' : 'Inactive' ?>
                             </td>
-                            <td style="width: 130px; background-color: #f8f8f8; padding: 10px; text-align: left; border: 1px solid #ccc;">
-                                <a href="index.php?role=admin&act=UpdateProductForm&id=<?= $value['id'] ?>"><input style="margin-left: 5px; width: 35px; height: 25px;" type="button" value="Sửa"></a>
-                                <a onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')" 
-   href="index.php?role=admin&act=DeleteProduct&id=<?= $value['id'] ?>">
-   <input style="margin-left: 5px; width: 35px; height: 25px;" type="button" value="Xóa">
-</a>
-
-                                
+                            <td style="width: 150px; background-color: #f8f8f8; padding: 10px; text-align: center; border: 1px solid #ccc;">
+                                <a href="index.php?role=admin&act=UpdateProductForm&id=<?= $value['id'] ?>">
+                                    <input style="margin: 2px; padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 12px;" type="button" value="Sửa">
+                                </a>
+                                <a href="index.php?role=admin&act=DeleteProduct&id=<?= $value['id'] ?>" onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?');">
+                                    <input style="margin: 2px; padding: 5px 10px; background-color: #dc3545; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 12px;" type="button" value="Xóa">
+                                </a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

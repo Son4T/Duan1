@@ -2,15 +2,15 @@
 <link rel="stylesheet" href="Assets/Client/Css/detail.css">
 <div class="main">
     <div class="gray-line">COOLMETA STORES</div>
-    <div class="back-main"><a href="index.php?API=home">Trang chủ</a>|<span><?= $detail['type'] ?> |<span><?= $detail['name'] ?></span></div>
+    <div class="back-main"><a href="index.php?API=home">Trang chủ</a> | <span><?= htmlspecialchars($detail['type']) ?></span> | <span><?= htmlspecialchars($detail['name']) ?></span></div>
     <div class="container">
         <div class="image-gallery">
             <img src="<?= $detail['image'] ?>" alt="Sản phẩm chính">
         </div>
         <div class="product-details">
-            <h2><span><?= $detail['name'] ?></h2>
-            <div class="product-code">Mã SP: <span><?= $detail['id'] ?></div>
-            <div class="price">Giá: <span><?= number_format($detail['price'], 0, ',', '.') ?> VNĐ</div>
+            <h2><?= htmlspecialchars($detail['name']) ?></h2>
+            <div class="product-code">Mã SP: <span><?= htmlspecialchars($detail['id']) ?></span></div>
+            <div class="price">Giá: <span><?= number_format($detail['price'], 0, ',', '.') ?> VNĐ</span></div>
                 <div class="size-options">
                     <label for="sizes">Kích cỡ:</label>
                     <div class="size" onclick="selectSize(this, 'M')">M</div>
@@ -37,7 +37,7 @@
                 <a href="index.php?act=AddToCart&id=<?= $detail['id'] ?>"><button type="submit"  class="add-to-cart">THÊM VÀO GIỎ HÀNG</button></a>
             <div class="description">
                 <h3>MÔ TẢ</h3>
-                <p><?= $detail['description'] ?></p>
+                <p><?= htmlspecialchars($detail['description']) ?></p>
             </div>
         </div>
     </div>
@@ -48,9 +48,18 @@
         <?php else: ?>
             <ul class="comments-list">
                 <?php foreach ($comments as $comment): ?>
-                    <li class="comment-item">
-                        <p><strong><?= htmlspecialchars($comment['user_name']) ?>:</strong> <?= htmlspecialchars($comment['comment']) ?></p>
-                        <p class="comment-date"><?= date('d/m/Y H:i', strtotime($comment['created_at'])) ?></p>
+                    <li class="comment-item" style="padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <p><strong><?= htmlspecialchars($comment['user_name']) ?>:</strong> <?= htmlspecialchars($comment['comment']) ?></p>
+                            <p class="comment-date" style="font-size: 12px; color: #999;"><?= date('d/m/Y H:i', strtotime($comment['created_at'])) ?></p>
+                        </div>
+                        <?php if(isset($_SESSION['user']) && ($_SESSION['user']['id'] == $comment['user_id'] || $_SESSION['user']['role'] == 'admin')): ?>
+                            <form action="index.php?act=DeleteComment" method="POST" style="display: inline;">
+                                <input type="hidden" name="comment_id" value="<?= htmlspecialchars($comment['id']) ?>">
+                                <input type="hidden" name="product_id" value="<?= htmlspecialchars($detail['id']) ?>">
+                                <button type="submit" style="padding: 5px 10px; background-color: #dc3545; color: white; border: none; border-radius: 3px; cursor: pointer; font-size: 12px;" onclick="return confirm('Bạn có chắc chắn muốn xóa bình luận này?');">Xóa</button>
+                            </form>
+                        <?php endif; ?>
                     </li>
                 <?php endforeach; ?>
             </ul>

@@ -59,6 +59,7 @@ if ($role !== 'admin') {
         'Order' => $OrdersController->index(),
         'CancelOrder' => $OrdersController->cancel($id),
         'AddComment' => $CommentController->addComment(),
+        'DeleteComment' => $CommentController->deleteComment(),
         default => $HomeController->index()
     };
 }
@@ -76,7 +77,8 @@ if (isset($role) && $role == 'admin') {
         'Product' => $AdminProductController->index(),
         'UpdateProductForm' => $AdminProductController->updateForm(),
         'UpdateProduct' => $AdminProductController->update($id),
-        'DeleteProduct' => $AdminProductController->delete($id),
+        'DeleteProduct' => $AdminProductController->confirmDeleteProduct($id),
+        'DeleteProductAction' => $AdminProductController->deleteProductAction($id),
         'SelectType' => $AdminProductController->createT(),
         'AddProduct' => $AdminProductController->createP(),
         'StorageProduct' => $AdminProductController->storage(),

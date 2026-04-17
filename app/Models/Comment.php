@@ -12,7 +12,7 @@ class Comment
 
     public function getCommentsByProductId($productId)
     {
-        $sql = "SELECT c.comment, c.created_at, u.fullname AS user_name FROM comments c JOIN users u ON c.user_id = u.id WHERE c.product_id = :product_id ORDER BY c.created_at DESC";
+        $sql = "SELECT c.id, c.comment, c.created_at, u.id AS user_id, u.fullname AS user_name FROM comments c JOIN users u ON c.user_id = u.id WHERE c.product_id = :product_id ORDER BY c.created_at DESC";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['product_id' => $productId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
