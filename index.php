@@ -13,6 +13,7 @@ include_once "app/Models/Account.php";
 include_once "app/Models/Comment.php";
 include_once "app/Models/Order.php";
 include_once "app/Models/Statistical.php";
+include_once "app/Models/Notification.php";
 
 // controller Admin
 include_once  "app/Controllers/Admin/AdminUserController.php";
@@ -21,6 +22,7 @@ include_once  "app/Controllers/Admin/AdminProductController.php";
 include_once  "app/Controllers/Admin/AdminOrderController.php";
 include_once  "app/Controllers/Admin/AdminCommentController.php";
 include_once  "app/Controllers/Admin/AdminStatisticalController.php";
+include_once  "app/Controllers/Admin/AdminNotificationController.php";
 
 // controller Client
 include_once  "app/Controllers/Client/HomeController.php";
@@ -35,6 +37,7 @@ include_once  "app/Controllers/Client/CheckOutController.php";
 include_once  "app/Controllers/Client/ChangeInformationController.php";
 include_once  "app/Controllers/Client/OrdersController.php";
 include_once  "app/Controllers/Client/CommentController.php";
+include_once  "app/Controllers/Client/PaymentController.php";
 
 //router
 include_once "Router/Web.php";
