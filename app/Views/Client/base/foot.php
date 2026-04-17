@@ -1,0 +1,60 @@
+<footer>
+    <div class="footer-infomation">
+        <div class="address">
+            <div class="footer-logo"><img src="Assets/images/logoo.png" alt="company logo"></div>
+            <div class="foot-address">
+                <div class="foot-address-bold">
+                    <H4>CÔNG TY CỔ PHẦN THỜI TRANG VIỆT NAM</H4>
+                    <H4>Hotline: 1900 2006</H4>
+                    <H4>8:30 - 20:30 tất cả các ngày trong tuần</H4>
+                </div>
+                <div class="foot-address-bold">
+                    <p>
+                        <h7 style="font-weight: bold;">VP Phía Bắc:</h7> Tầng 12 tòa nhà HH2C0 Khu đô thị Thanh Hà, Phú Lương Kiến Hưng Hà Đông và xã Cự Khê huyện Thanh Oai, Hà Nội.
+                    </p><br>
+                    <p>
+                        <h7 style="font-weight: bold;">VP Phía Nam:</h7> 186A Nam Kỳ Khởi Nghĩa, Phường Võ Thị Sáu, Quận 3, TP.HCM.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="about">
+            <h4>GIỚI THIỆU COOLMETA</h4>
+            <p><a href="index.php?API=about">Giới thiệu</a></p>
+            <p><a href="#">Blog</a></p>
+            <p><a href="#">Hệ thống cửa hàng</a></p>
+            <p><a href="index.php?API=feedback">liên hệ với Collmeta</a></p>
+        </div>
+        <div class="custom-support">
+            <h4>HỖ TRỢ KHÁCH HÀNG</h4>
+            <p><a href="#">Hỏi đáp</a></p>
+            <p><a href="#">Chính sách vận chuyển</a></p>
+            <p><a href="#">Hướng dẫn chọn kích cỡ</a></p>
+            <p><a href="#">Hướng dẫn thanh toán</a></p>
+            <p><a href="#">Quy định đổi hàng</a></p>
+            <p><a href="index.php?API=guide">Hướng dẫn mua hàng</a></p>
+        </div>
+    </div>
+    <div class="footer-conect-link">
+        <H4>KẾT NỐI</H4>
+        <div class="social-link">
+            <a href="https://www.facebook.com/gicomaykhgfyuf"><img class="social-facebook" src="Assets/images/social-facebook.png" alt="fanpage"></a>
+            <a href="https://www.instagram.com/hshshjsbsbc06/"><img class="socical-instagram" src="Assets/images/socical-instagram.png" alt=""></a>
+            <a href="https://www.youtube.com/@H%C6%B0ngT%E1%BA%A1-w8d"><img class="social-youtube" src="Assets/images/social-youtube.png" alt=""></a>
+        </div>
+        <h4>PHƯƠNG THỨC THANH TOÁN</h4>
+<div class="bank-box">
+    <img src="data:image/jpeg;base64,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" alt="Vietcombank" class="bank-logo">
+    <img src="data:image/png;base64,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" alt="QR Pay" class="qr-vcb">
+</div>
+        <div class="pay-area">
+
+        </div>
+    </div>
+</footer>
+<div class="copyright">© 2026 Coolmeta. Thời trang giới trẻ.</div>
+</div>
+</body>
+<script src="Assets/Js/main.js"></script>
+
+</html>
