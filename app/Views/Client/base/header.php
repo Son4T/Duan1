@@ -3,79 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="Assets/global.css">
     <link rel="stylesheet" href="Assets/Client/Css/main.css">
-    
     <title>Coolmeta Stores</title>
-    <style>
-        /* Tùy chỉnh thêm một chút cho đẹp */
-        .search-bar { border-radius: 20px 0 0 20px !important; }
-        .btn-search { border-radius: 0 20px 20px 0 !important; }
-        .nav-link { font-weight: 600; color: #333; transition: 0.3s; }
-        .nav-link:hover { color: #dc3545; }
-        .badge-cart { font-size: 0.7rem; padding: 3px 6px; }
-    </style>
 </head>
 
 <body>
-    <div class="wrapper">
-        <header class="bg-danger text-white text-center py-2 shadow-sm">
-            <small class="fw-bold" style="letter-spacing: 1px;">MIỄN PHÍ GIAO HÀNG TỪ 300K</small>
+    <div class="wraper">
+        <header>
+            <div class="red-line">
+                <h7>MIỄN PHÍ GIAO HÀNG TỪ 300K</h7>
+            </div>
         </header>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-            <div class="container">
-                <a class="navbar-brand" href="index.php?role=admin&act=">
-                    <img src="Assets/images/logoo.png" alt="logo" height="40">
-                </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="mainNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link" href="index.php?API=home">TRANG CHỦ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">QUẦN</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">ÁO</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">PHỤ KIỆN</a></li>
-                    </ul>
-
-                    <form action="index.php" method="GET" class="d-flex me-3" style="min-width: 250px;">
-                        <input type="hidden" name="act" value="Products">
-                        <div class="input-group border border-dark rounded-pill overflow-hidden">
-                            <input class="form-control border-0 px-3" type="search" placeholder="TÌM KIẾM..." name="search" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>" required>
-                            <button class="btn btn-dark border-0 px-3" type="submit">Tìm</button>
+        <div class="all-menu">
+            <div class="logo"><a href="index.php?role=admin&act="><img src="Assets/images/logoo.png" alt="company logo"></a></div>
+            <div class="nav-main">
+                <ul>
+                    <li><a class="home-link" href="index.php?API=home">TRANG CHỦ</a></li>
+                    <li><a class="menu-link" >QUẦN</a></li>
+                    <li><a class="menu-link" >ÁO</a></li>
+                    <li><a class="menu-link" >PHỤ KIỆN</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <form action="index.php" method="GET" style="display: flex; gap: 0; width: 100%; align-items: center;">
+                    <input type="hidden" name="act" value="Products">
+                    <input class="search-bar" type="search" placeholder="TÌM KIẾM..." name="search" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>" required>
+                    <button type="submit" class="search-header-btn">
+                        <img class="search-logo" src="Assets/images/search-icon.png" alt="Tìm kiếm">
+                        <span>search</span>
+                    </button>
+                </form>
+            </div>
+            <div class="user-cart">
+            <div class="cart-container"> 
+              
+                <a href="<?php if(isset($_SESSION['Cart']) && isset($_SESSION['user'])):?>index.php?act=Cart<?php endif; ?>"> 
+                   <a href="index.php?act=Cart"><img src="Assets/images/cart-logo.png" alt="Giỏ hàng" style="cursor: pointer;"></a>
+                   <div class="badge"><?= $_SESSION['totalQuantity'] ?? "0" ?></div></a></div>
+                <?php if(empty($_SESSION['user'])) : ?> <img class="user" src="Assets/images/user.png" alt=""><?php endif; ?>
+                <?php if(isset($_SESSION['user'])) : ?> <a href="index.php?act=Information"><img class="user-1" src="Assets/images/user.png" alt=""></a><?php endif; ?>
+            </div>
+            <div class="management-user">
+                <?php if (!isset($_SESSION['user'])): ?>
+                    <a class="user-select-link" href="index.php?act=LoginForm">
+                        <div class="user-select">Đăng nhập</div>
+                    </a>
+                    <a class="user-select-link" href="index.php?act=RegisterForm">
+                        <div class="user-select">Tạo tài khoản</div>
+                    </a>
+                    </a><?php endif; ?>
+            </div>
+            <div class="toggle-categories">
+                <div class="content-categories">
+                    <div class="category">
+                        <div class="category-card">
+                            <?php $count = 0; ?>
+                            <h5>ÁO</h5>
+                            <?php foreach ($categories as $value): ?>
+                                <?php if ($value['type'] == "Áo"): ?>
+                                    <p><a href="index.php?act=Category&id=<?= $value['id'] ?>"><?= $value['cate_name'] ?></a></p>
+                                    <?php
+                                    $count++;
+                                    if ($count == 6):
+                                        break;
+                                    endif;
+                                    ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
                         </div>
-                    </form>
-
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="position-relative">
-                            <a href="index.php?act=Cart">
-                                <img src="Assets/images/cart-logo.png" alt="Cart" height="28">
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger badge-cart">
-                                    <?= $_SESSION['totalQuantity'] ?? "0" ?>
-                                </span>
-                            </a>
-                        </div>
-
-                        <?php if(isset($_SESSION['user'])) : ?>
-                            <a href="index.php?act=Information">
-                                <img src="Assets/images/user.png" alt="User" height="30" class="rounded-circle border border-2 border-dark">
-                            </a>
-                        <?php endif; ?>
                     </div>
-
-                    <?php if (!isset($_SESSION['user'])): ?>
-                        <div class="ms-lg-3 mt-2 mt-lg-0 d-flex gap-2">
-                            <a href="index.php?act=LoginForm" class="btn btn-sm btn-outline-dark rounded-pill px-3">Đăng nhập</a>
-                            <a href="index.php?act=RegisterForm" class="btn btn-sm btn-dark rounded-pill px-3">Đăng ký</a>
+                    <div class="category">
+                        <div class="category-card">
+                            <h5>QUẦN</h5>
+                            <?php foreach ($categories as $value): ?>
+                                <?php if ($value['type'] == "Quần"): ?>
+                                    <p><a href="index.php?act=Category&id=<?= $value['id'] ?>"><?= $value['cate_name'] ?></a></p>
+                                    <?php
+                                    $count++;
+                                    if ($count == 6):
+                                        break;
+                                    endif;
+                                    ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>    
                         </div>
-                    <?php endif; ?>
+                    </div>
+                    <div class="category">
+                        <div class="category-card">
+                            <h5>PHỤ KIỆN</h5>
+                            <?php foreach ($categories as $value): ?>
+                                <?php if ($value['type'] == "Phụ Kiện"): ?>
+                                    <p><a href="index.php?act=Category&id=<?= $value['id'] ?>"><?= $value['cate_name'] ?></a></p>
+                                    <?php
+                                    $count++;
+                                    if ($count == 6):
+                                        break;
+                                    endif;
+                                    ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="logo-category">
+                    <div><img class="category-logo" src="Assets/images/category_logoo.png" alt=""></div>
+                    <div class="admin-page-link">
+                    </div>
                 </div>
             </div>
-        </nav>
-    </div>
+        </div>
