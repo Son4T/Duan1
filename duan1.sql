@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 17, 2026 at 03:37 PM
+-- Generation Time: Apr 18, 2026 at 02:38 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -20,131 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `duan1`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `categories`
---
-
-CREATE TABLE `categories` (
-  `id` int NOT NULL,
-  `cate_name` varchar(255) NOT NULL,
-  `type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `categories`
---
-
-INSERT INTO `categories` (`id`, `cate_name`, `type`) VALUES
-(1, 'Áo sơ mii', 'Áo'),
-(2, 'Áo jacket', 'Áo'),
-(3, 'Áo blazer', 'Áo'),
-(4, 'Quần tây', 'Quần'),
-(5, 'Quần short', 'Quần'),
-(6, 'Quần khaki', 'Quần'),
-(7, 'Quần Jeans', 'Quần'),
-(8, 'Tất', 'Phụ Kiện'),
-(9, 'Dây lưng', 'Phụ Kiện'),
-(10, 'Ví da', 'Phụ Kiện'),
-(11, 'Cà vạt', 'Phụ Kiện'),
-(12, 'Giày', 'Phụ Kiện'),
-(14, '1', 'Phụ Kiện');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `comments`
---
-
-CREATE TABLE `comments` (
-  `id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `comment` text NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`id`, `product_id`, `user_id`, `comment`, `created_at`, `updated_at`) VALUES
-(6, 19, 12, '`1', '2026-04-17 06:42:56', '2026-04-17 06:42:56'),
-(7, 19, 12, '1', '2026-04-17 06:42:58', '2026-04-17 06:42:58'),
-(8, 18, 12, '1', '2026-04-17 15:32:44', '2026-04-17 15:32:44');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `notifications`
---
-
-CREATE TABLE `notifications` (
-  `id` int NOT NULL,
-  `order_id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `message` varchar(255) NOT NULL,
-  `is_read` tinyint(1) DEFAULT '0',
-  `is_confirmed` tinyint(1) DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orders`
---
-
-CREATE TABLE `orders` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `status` enum('pending','in transit','completed','canceled') DEFAULT 'pending',
-  `payment_method` enum('cash','card','online','bank','momo','vnpay','qr') DEFAULT 'cash',
-  `total_price` decimal(10,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `user_id`, `status`, `payment_method`, `total_price`, `created_at`) VALUES
-(11, 12, 'pending', 'cash', '3.00', '2026-04-17 06:28:00'),
-(12, 12, 'pending', 'cash', '1.00', '2026-04-17 06:57:41'),
-(13, 12, 'canceled', 'cash', '2.00', '2026-04-17 15:10:11'),
-(14, 12, 'canceled', 'qr', '2.00', '2026-04-17 15:12:18'),
-(15, 12, 'pending', 'qr', '1.00', '2026-04-17 15:13:08'),
-(16, 12, 'completed', 'qr', '1.00', '2026-04-17 15:17:11');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `order_details`
---
-
-CREATE TABLE `order_details` (
-  `id` int NOT NULL,
-  `order_id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `product_name` varchar(255) DEFAULT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `quantity` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `order_details`
---
-
-INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `product_name`, `price`, `quantity`) VALUES
-(15, 11, 18, '1', '1.00', 3),
-(16, 12, 19, '1111111111', '1.00', 1),
-(17, 13, 18, '1', '1.00', 2),
-(18, 14, 19, '1111111111', '1.00', 2),
-(19, 15, 18, '1', '1.00', 1),
-(20, 16, 19, '1111111111', '1.00', 1);
 
 -- --------------------------------------------------------
 
@@ -171,77 +46,33 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `image`, `price`, `description`, `content`, `type`, `status`, `category_id`, `view`, `created_at`) VALUES
-(18, '1', 'Assets/Admin/Uploads/69e1d1ed2e53d4.37175927.jpeg', '1.00', '1', '1', 'Quần', 'active', 4, 16, '2026-04-17 06:23:41'),
-(19, '1111111111', 'Assets/Admin/Uploads/69e1d65f311ff2.24941487.png', '1.00', '1', '1', 'Áo', 'active', 1, 13, '2026-04-17 06:42:39'),
-(20, '1', 'Assets/Admin/Uploads/1776408438_69e1d7763e114.png', '1.00', '1', '1', 'Áo', 'active', 1, 1, '2026-04-17 06:47:18');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `fullname` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `role` enum('admin','user') DEFAULT 'user',
-  `address` text,
-  `status` enum('active','banned') DEFAULT 'active',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `fullname`, `email`, `password`, `phone`, `role`, `address`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Nguyễn Hồng Sơn', 'crhogsn@gmail.com', '$2y$10$OesPT1y.eoJNhrC6hDr12emQibJZH/S.RiQ3onRmGLwYmPUh3u4Ru', '0355895918', 'admin', '', 'active', '2024-12-03 13:47:04', '2025-12-10 19:34:16'),
-(12, 'Hưng Tạ111', 'hungta357@gmail.com', '$2y$10$WEbximf50WxVVPtvN71E6OByVyLI2bLtBrPJl0kf/Fu.3H5B/MpKq', '1', 'user', '1', 'active', '2026-04-16 23:27:10', '2026-04-17 06:28:46');
+(18, 'Áo sơ mi 001', 'Assets/Admin/Uploads/1776478634_69e2e9aa035ae.png', '100000.00', '1Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Quần', 'active', 1, 18, '2026-04-17 06:23:41'),
+(19, 'Áo sơ mi 002', 'Assets/Admin/Uploads/1776478714_69e2e9fa5bd3c.png', '350000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Áo', 'active', 1, 13, '2026-04-17 06:42:39'),
+(20, 'Áo sơ mi 003', 'Assets/Admin/Uploads/1776478741_69e2ea15e2a51.jpg', '200000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', '1Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Áo', 'active', 1, 1, '2026-04-17 06:47:18'),
+(21, 'Áo jacket 001', 'Assets/Admin/Uploads/1776478815_69e2ea5f92156.jpg', '200000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Áo', 'active', 2, 0, '2026-04-18 02:20:15'),
+(22, 'Áo jacket 002', 'Assets/Admin/Uploads/1776478849_69e2ea816dc7e.jpg', '400000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Áo', 'active', 2, 0, '2026-04-18 02:20:49'),
+(23, 'Áo blazer 001', 'Assets/Admin/Uploads/1776478890_69e2eaaa4729e.png', '250000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Áo', 'active', 3, 0, '2026-04-18 02:21:30'),
+(24, 'Áo blazer 0012', 'Assets/Admin/Uploads/1776478926_69e2eace13019.png', '400000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Áo', 'active', 3, 0, '2026-04-18 02:22:06'),
+(25, 'Áo blazer 003', 'Assets/Admin/Uploads/1776478969_69e2eaf9324e4.png', '200000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Áo', 'active', 3, 0, '2026-04-18 02:22:49'),
+(26, 'Quần tây 001', 'Assets/Admin/Uploads/1776479003_69e2eb1ba4a21.jpg', '200000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Quần', 'active', 4, 0, '2026-04-18 02:23:23'),
+(27, 'Quần tây 002', 'Assets/Admin/Uploads/1776479035_69e2eb3b0f31a.png', '500000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Quần', 'active', 4, 0, '2026-04-18 02:23:55'),
+(28, 'Quần short 001', 'Assets/Admin/Uploads/1776479067_69e2eb5b6bee7.jpg', '4000000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Quần', 'active', 5, 0, '2026-04-18 02:24:27'),
+(29, 'Quần short 002', 'Assets/Admin/Uploads/1776479099_69e2eb7b1df4e.jpg', '300000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Quần', 'active', 5, 0, '2026-04-18 02:24:59'),
+(30, 'Quần short 003', 'Assets/Admin/Uploads/1776479151_69e2ebaf45abe.jpg', '250000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Quần', 'active', 5, 0, '2026-04-18 02:25:51'),
+(31, 'Quần kaki 001', 'Assets/Admin/Uploads/1776479187_69e2ebd30c8f7.jpg', '200000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Quần', 'active', 7, 0, '2026-04-18 02:26:27'),
+(32, 'Quần jeans 001', 'Assets/Admin/Uploads/1776479229_69e2ebfd0203a.png', '250000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Quần', 'active', 7, 0, '2026-04-18 02:27:09'),
+(33, 'Quần jeans 002', 'Assets/Admin/Uploads/1776479265_69e2ec2192e2a.jpg', '600000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Quần', 'active', 7, 0, '2026-04-18 02:27:45'),
+(34, 'Tất 001', 'Assets/Admin/Uploads/1776479291_69e2ec3b25716.jpg', '35000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Phụ Kiện', 'active', 8, 0, '2026-04-18 02:28:11'),
+(35, 'Dây lưng 001', 'Assets/Admin/Uploads/1776479318_69e2ec5637bc7.png', '250000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Phụ Kiện', 'active', 9, 0, '2026-04-18 02:28:38'),
+(36, 'Dây lưng 002', 'Assets/Admin/Uploads/1776479370_69e2ec8a85dfb.png', '200000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Phụ Kiện', 'active', 9, 0, '2026-04-18 02:29:30'),
+(37, 'Ví da 001', 'Assets/Admin/Uploads/1776479406_69e2ecaec5e45.jpg', '400000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Phụ Kiện', 'active', 10, 0, '2026-04-18 02:30:06'),
+(38, 'Cà vạt 001', 'Assets/Admin/Uploads/1776479572_69e2ed54346f4.jpg', '120000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Phụ Kiện', 'active', 11, 0, '2026-04-18 02:32:52'),
+(39, 'giày 001', 'Assets/Admin/Uploads/1776479632_69e2ed90084d5.jpg', '250000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Phụ Kiện', 'active', 12, 0, '2026-04-18 02:33:52'),
+(40, 'Giày 002', 'Assets/Admin/Uploads/1776479684_69e2edc4aa61f.jpg', '300000.00', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Đặc điểm chi tiết của áo sơ mi:\r\nCấu trúc: Gồm cổ áo (cổ bẻ, button-down), thân áo, tay áo và hàng nút cài phía trước.\r\nChất liệu: Thường dùng vải kate mềm mại, vải cotton thoáng mát, hoặc linen cho mùa hè.\r\nPhom dáng:\r\nClassic Fit (Cổ điển): Rộng rãi, thoải mái, phù hợp nhiều dáng người.\r\nSlim Fit (Ôm sát): Tôn dáng, trẻ trung.\r\nRegular Fit (Vừa vặn): Thoải mái, phù hợp đi làm.\r\n', 'Phụ Kiện', 'active', 12, 0, '2026-04-18 02:34:44');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `comments`
---
-ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `product_id` (`product_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `notifications`
---
-ALTER TABLE `notifications`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `order_id` (`order_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `order_details`
---
-ALTER TABLE `order_details`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `order_id` (`order_id`),
-  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `products`
@@ -251,88 +82,18 @@ ALTER TABLE `products`
   ADD KEY `category_id` (`category_id`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `comments`
---
-ALTER TABLE `comments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `notifications`
---
-ALTER TABLE `notifications`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `order_details`
---
-ALTER TABLE `order_details`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `comments`
---
-ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `notifications`
---
-ALTER TABLE `notifications`
-  ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `order_details`
---
-ALTER TABLE `order_details`
-  ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`
